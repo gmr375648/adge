@@ -87,7 +87,7 @@
 
 <script>
 const streamUrl = "https://as1.digitalsynapsebd.com/proxy/bbdktraf/stream";
-const subtitleUrl = "https://raw.githubusercontent.com/gmr375648/adge/refs/heads/main/ban01.json"; // এখানে তোমার JSON ফাইলের লিংক দাও
+const subtitleUrl = "https://raw.githubusercontent.com/gmr375648/adge/refs/heads/main/ban01.json";
 const audio = new Audio(streamUrl);
 audio.crossOrigin = "anonymous";
 audio.preload = "none";
@@ -173,16 +173,15 @@ window.addEventListener('resize',resizeCanvasToDisplaySize);
 resizeCanvasToDisplaySize();
 
 window.addEventListener('load',()=>{
-  startPlayback().catch(()=>{overlayOff.style.display='flex';});
-  fetchSubtitle(); // প্রথমবার লোডের সময় সাবটাইটেল আনবো
-  setInterval(fetchSubtitle, 10000); // প্রতি 10 সেকেন্ড পর পর নতুন ডেটা আনবে
+  overlayOff.style.display='flex'; // অটোপ্লে বাদ, শুধু overlay দেখাবে
+  fetchSubtitle();
+  setInterval(fetchSubtitle, 10000);
 });
 
 themeToggle.addEventListener('click',()=>{
   body.dataset.theme = body.dataset.theme==='dark'?'light':'dark';
 });
 
-// 🔥 JSON থেকে subtitle লোড করার ফাংশন
 async function fetchSubtitle(){
   try {
     const res = await fetch(subtitleUrl + "?t=" + Date.now());
